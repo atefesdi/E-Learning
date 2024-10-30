@@ -17,7 +17,7 @@ export default function CoursesPage() {
 
   useEffect(() => {
     if (status === "idle") {
-      const courseId = null // or replace this with the actual course ID if needed
+      const courseId = null
       dispatch(fetchCoursesOrModules(courseId))
     }
   }, [status, dispatch])

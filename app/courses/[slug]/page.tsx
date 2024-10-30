@@ -4,9 +4,10 @@ import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { fetchCoursesOrModules } from "@/store/courses/coursesSlice"
 import Lesson from "@/components/lesson"
+import { AppDispatch } from "@/store/store"
 
 interface Params {
-  slug: string // Type definition for the expected params
+  slug: string
 }
 
 interface ModulesPageProps {
@@ -20,7 +21,7 @@ interface CourseState {
 }
 
 export default function ModulesPage({ params }: ModulesPageProps) {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch<AppDispatch>()
   const { modules, status, error } = useSelector(
     (state: { courses: CourseState }) => state.courses
   )
@@ -29,7 +30,7 @@ export default function ModulesPage({ params }: ModulesPageProps) {
   const courseId: number | null = slug ? Number(slug) : null
 
   useEffect(() => {
-    if (status === "idle" && courseId) {
+    if (status === "idle" && courseId !== null) {
       dispatch(fetchCoursesOrModules(courseId))
     }
   }, [status, dispatch])

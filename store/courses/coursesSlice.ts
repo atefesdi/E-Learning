@@ -17,9 +17,9 @@ const initialState: CoursesState = {
 }
 
 export const fetchCoursesOrModules = createAsyncThunk<
-  Course[] | Module[], // Return type
-  number | null, // Argument type
-  { rejectValue: string } // ThunkAPI type
+  Course[] | Module[],
+  number | null,
+  { rejectValue: string }
 >(
   "courses/fetchCoursesOrModules",
   async (courseId = null, { rejectWithValue }) => {
@@ -36,9 +36,9 @@ export const fetchCoursesOrModules = createAsyncThunk<
         if (!selectedCourse) {
           return rejectWithValue("Course not found")
         }
-        return selectedCourse.modules // Return modules for the selected course
+        return selectedCourse.modules
       }
-      return courses // Return all courses if no courseId is provided
+      return courses
     } catch (error) {
       return rejectWithValue(
         (error as Error).message || "An unknown error occurred"
