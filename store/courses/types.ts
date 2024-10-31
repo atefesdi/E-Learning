@@ -1,5 +1,3 @@
-// store/types.ts
-
 export interface ContentItem {
   type: "text" | "video" | "audio" | "podcast"
   data: string
@@ -12,7 +10,6 @@ export interface Lesson {
   content: ContentItem[]
 }
 
-// Define the structure of each module
 export interface Module {
   title: string
   lessons: Lesson[]

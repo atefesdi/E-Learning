@@ -1,12 +1,12 @@
 // store/coursesSlice.ts
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit"
-import { Course, Module } from "./types" // Ensure the path is correct
+import { Course, Module } from "./types"
 
 interface CoursesState {
-  courses: Course[] // List of courses
-  modules: Module[] // List of modules (for when a specific course is selected)
-  status: "idle" | "loading" | "succeeded" | "failed" // Loading status
-  error: string | null // Error message if any
+  courses: Course[]
+  modules: Module[]
+  status: "idle" | "loading" | "succeeded" | "failed"
+  error: string | null
 }
 
 const initialState: CoursesState = {
@@ -52,20 +52,24 @@ const coursesSlice = createSlice({
   initialState,
   reducers: {
     resetStatus: (state) => {
-      state.status = "idle" // Reset status to idle
+      state.status = "idle"
     },
   },
   extraReducers: (builder) => {
     builder
       .addCase(fetchCoursesOrModules.pending, (state) => {
-        state.status = "loading" // Set loading status
+        state.status = "loading"
       })
       .addCase(
         fetchCoursesOrModules.fulfilled,
         (state, action: PayloadAction<Course[] | Module[]>) => {
           state.status = "succeeded"
-          console.log("Action Payload:", action.payload)
-          if (Array.isArray(action.payload) && action.payload[0]?.id) {
+
+          if (
+            Array.isArray(action.payload) &&
+            action.payload[0] &&
+            "id" in action.payload[0]
+          ) {
             state.courses = action.payload as Course[]
           } else {
             state.modules = action.payload as Module[]
@@ -73,7 +77,7 @@ const coursesSlice = createSlice({
         }
       )
       .addCase(fetchCoursesOrModules.rejected, (state, action) => {
-        state.status = "failed" // Set failed status
+        state.status = "failed"
         state.error = action.payload ?? "An error occurred"
       })
   },

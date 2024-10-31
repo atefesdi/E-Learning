@@ -38,14 +38,12 @@ export default function ModulesPage({ params }: ModulesPageProps) {
   if (status === "loading") return <p>Loading...</p>
   if (status === "failed") return <p>Error: {error}</p>
 
-  console.log(modules)
   return (
     <div>
-      <h1>Modules</h1>
+      <h1>Courses</h1>
       {modules.map((module, index) => (
         <div key={index}>
           <Lesson detail={module} />
-          {/* You can further render lessons or other details here */}
         </div>
       ))}
     </div>

@@ -4,7 +4,7 @@ import MainHeader from "@/components/main-header"
 import "./globals.css"
 
 interface RootLayoutProps {
-  children: ReactNode // Define the type for children
+  children: ReactNode
 }
 
 export default function RootLayout({ children }: RootLayoutProps) {
